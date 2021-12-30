@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des membres!{% endblock %}
+
+{% block body %}
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Firtsname</th>
+            <th>Lastname</th>
+            <th>Date naissance</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if (persons is not empty) %}
+            {% for person in persons %}
+            <tr>
+                <th>{{ person.id }}</th>
+                <td>{{ person.firstname }}</td>
+                <td>{{ person.lastname }}</td>
+                <td>{{ person.birthday | date('d/m/Y') }}</td>
+            </tr>
+            {% endfor %}
+            {% else %}
+                <tr>
+                    <td>No Data</td>
+                </tr>
+        {% endif %}
+        </tbody>
+    </table>
+    <a href="{{ path('admin_person_create') }}" role="button">Ajouter un personnel</a>
+{% endblock %}

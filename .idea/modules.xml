@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../kadiTresseApi/.idea/kadiTresseApi.iml" filepath="$PROJECT_DIR$/../kadiTresseApi/.idea/kadiTresseApi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../madrassa/.idea/madrassa.iml" filepath="$PROJECT_DIR$/../madrassa/.idea/madrassa.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/personnel.iml" filepath="$PROJECT_DIR$/.idea/personnel.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../support/.idea/support.iml" filepath="$PROJECT_DIR$/../support/.idea/support.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des membres!{% endblock %}
+
+{% block body %}
+    {% for message in app.flashes('message') %}
+        <div class="w3-panel w3-green">
+            <p>{{ message }}</p>
+        </div>
+    {% endfor %}
+    <h1>Equipe(s)</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Firtsname</th>
+            <th>Lastname</th>
+            <th>Date naissance</th>
+            <th>Titre</th>
+            <th>Equipes</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if (persons is not empty) %}
+            {% for person in persons %}
+            <tr>
+                <th>{{ person.id }}</th>
+                <td>{{ person.firstname }}</td>
+                <td>{{ person.lastname }}</td>
+                <td>{{ person.birthday | date('d/m/Y') }}</td>
+                <td>{{ person.post }}</td>
+                {% if person.subordinate|length > 0 %}
+                    <td><a href="{{ path('admin_person_subordinate', {'id': person.id}) }}"><span class="w3-text-blue"><u>{{ person.subordinate|length }}<i class="fa fa-user"></i></u></span></a></td>
+                    {% else %}
+                        <td>{{ person.subordinate|length }}</td>
+                {% endif %}
+                <td>
+                    <a href="{{ path('admin_person_edit', {'id': person.id}) }}"><i class="fa fa-edit" style="font-size:24px" title="Modifier"></i></a>
+                    <a href="{{ path('admin_person_detail', {'id': person.id}) }}"><i class="fa fa-eye" style="font-size:24px" title="Voir"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+            {% else %}
+                <tr>
+                    <td>No Data</td>
+                </tr>
+        {% endif %}
+        </tbody>
+    </table>
+    <div class="grid">
+        <a href="{{ path('admin_person_list') }}"><button class="w3-teal"><i class="fa fa-reply" style="font-size:24px"></i> Liste des personnels</button></a>
+    </div>
+{% endblock %}

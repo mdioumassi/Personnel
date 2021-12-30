@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil!{% endblock %}
+
+{% block body %}
+    <h1>Profil</h1>
+    <table>
+        <tbody>
+        <tr>
+            <td style="width: 22%">
+                <img src="{{ asset('/uploads/photosProfile/'~person.photo) }}" alt="">
+            </td>
+            <td>
+                <table>
+                    <tbody>
+                    <tr>
+                        <th>Nom</th> <td>{{ person.firstname }}</td>
+                    </tr>
+                    <tr>
+                        <th>Prénom</th> <td>{{ person.lastname }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date</th> <td>{{ person.birthday | date('d-m-Y') }}</td>
+                    </tr>
+                    <tr>
+                        <th>adresse</th> <td>{{ person.address }}</td>
+                    </tr>
+                    <tr>
+                        <th>Titre</th> <td>{{ person.post }}</td>
+                    </tr>
+                    <tr>
+                        <th>Responsable</th> <td>{{ person.persons }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="grid">
+        <a href="{{ path('admin_person_edit', {'id': person.id}) }}"><button>Modifier <i class="fa fa-edit"></i></button></a>
+        <button onclick="document.getElementById('id01').style.display='block'" class="w3-red">Supprimer <i class="fa fa-trash"></i></button>
+        <a href="{{ path('admin_person_list') }}"><button class="w3-teal">Annuler <i class="fa fa-users"></i></button></a>
+    </div>
+
+    <div id="id01" class="w3-modal">
+        <div class="w3-modal-content" style="width: 350px">
+            <header class="w3-container w3-red">
+            <span onclick="document.getElementById('id01').style.display='none'"
+                  class="w3-button w3-display-topright">&times;</span>
+                <h4>SUPPRESSION</h4>
+            </header>
+            <div class="w3-container">
+                <p class="w3-center">Voulez vous supprimer ! </br> {{ person.firstname }} <strong>{{ person.lastname|upper }}</strong></p>
+            </div>
+            <footer class="w3-container w3-black w3-padding">
+                <div class="grid">
+                    <a href="{{ path('admin_person_detail',  {'id': person.id} ) }}"><button class="w3-button w3-left w3-light-grey w3-round-large">Non</button></a>
+                    <a href="{{ path('admin_person_delete', {'id': person.id}) }}"><button class="w3-button w3-right w3-red w3-round-large">Oui</button></a>
+                </div>
+            </footer>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une personne!{% endblock %}
+
+{% block body %}
+<h1>Ajour d'une personne</h1>
+{{ form_start(form) }}
+    <div class="grid">
+        {{ form_row(form.firstname) }}
+        {{ form_row(form.lastname) }}
+    </div>
+    {{ form_row(form.birthday) }}
+    {{ form_row(form.address) }}
+    {{ form_row(form.post) }}
+    {{ form_row(form.photo) }}
+    {{ form_row(form.persons) }}
+    <div class="grid w3-margin-top">
+        <button type="submit">Enregistrer</button>
+        <a href="{{ path('admin_person_list') }}" role="button" class="w3-teal">Annuler</a>
+    </div>
+{{ form_end(form) }}
+
+{% endblock %}

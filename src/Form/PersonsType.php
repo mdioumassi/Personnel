@@ -69,11 +69,8 @@ class PersonsType extends AbstractType
             ->add('persons', EntityType::class, [
                 'class' => Persons::class,
                 'label' => 'Responsable',
-//                'placeholder' => 'Choose an option',
-//                'mapped' => false,
                 'required' => false
             ])
-//            ->add('Enregistrer', SubmitType::class)
         ;
     }
 

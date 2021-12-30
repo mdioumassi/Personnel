@@ -46,11 +46,12 @@ class Persons
 
     /**
      * @ORM\ManyToOne(targetEntity=Persons::class, inversedBy="subordinate")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $persons;
 
     /**
-     * @ORM\OneToMany(targetEntity=Persons::class, mappedBy="persons")
+     * @ORM\OneToMany(targetEntity=Persons::class, mappedBy="persons", orphanRemoval=true)
      */
     private $subordinate;
 

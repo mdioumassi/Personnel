@@ -4,7 +4,7 @@
 
 {% block body %}
     <h1>Modification</h1>
-    {{ form_start(form) }}
+    {{ form_start(form, {'attr': {'id': 'formPerso'}}) }}
         <div class="grid">
             {{ form_row(form.firstname) }}
             {{ form_row(form.lastname) }}
@@ -14,12 +14,12 @@
     {{ form_row(form.post) }}
     {{ form_row(form.photo) }}
     {{ form_row(form.persons) }}
+    {{ form_end(form) }}
     <div class="grid w3-margin-top">
-        <button type="submit">Enregistrer <i class="fa fa-edit"></i></button>
+        <button type="submit" id="submitBtn">Enregistrer <i class="fa fa-edit"></i></button>
         <button class="w3-red" onclick="document.getElementById('id01').style.display='block'">Supprimer <i class="fa fa-trash"></i></button>
         <a href="{{ path('admin_person_list') }}"><button class="w3-teal">Annuler <i class="fa fa-users"></i></button></a>
     </div>
-    {{ form_end(form) }}
 
     <div id="id01" class="w3-modal">
         <div class="w3-modal-content" style="width: 350px">
@@ -39,4 +39,15 @@
             </footer>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#submitBtn').on('click', function () {
+            $('#formPerso').submit()
+        })
+    })
+</script>
 {% endblock %}

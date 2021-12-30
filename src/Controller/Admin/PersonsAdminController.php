@@ -40,12 +40,12 @@ class PersonsAdminController extends AbstractController
             $form = $this->createForm(PersonsType::class, $persons);
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
+                $data = $form->getData();
                 $photoFile = $form->get('photo')->getData();
                 if ($photoFile) {
                     $originalFilename = pathinfo($photoFile->getClientOriginalName(), PATHINFO_FILENAME);
                     $safeFilename = $slugger->slug($originalFilename);
                     $newFilename = $safeFilename.'-'.uniqid().'.'.$photoFile->guessExtension();
-
                     try {
                         $photoFile->move(
                             $this->getParameter('photo_directory'),
@@ -80,7 +80,7 @@ class PersonsAdminController extends AbstractController
               $manager->persist($data);
               $manager->flush();
               $this->addFlash('message', 'Profil mis à jour');
-              return $this->redirectToRoute('admin_person_edit', ['id' => $persons->getId()]);
+              return $this->redirectToRoute('admin_person_list');
           }
           return $this->renderForm('admin/persons/edit.html.twig', [
               'form' => $form,

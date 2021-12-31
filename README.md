@@ -7,5 +7,6 @@
 #Database
 taper la commande: composer dump-env prod
 pour créer un env de production: .env.local.php
- -> Crée la base de données:
--> p
+ -> Lancer la migration:
+-> php bin/console doctrine:migration:migrate
+

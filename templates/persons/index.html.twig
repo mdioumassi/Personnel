@@ -3,7 +3,10 @@
 {% block title %}Liste des membres!{% endblock %}
 
 {% block body %}
-<h1>liste des personnes</h1>
+    <div class="grid">
+        <h1>liste du personnel</h1>
+        <a href="{{ path('admin_person_list') }}"><button>Administration</button></a>
+    </div>
     <div class="grid">
         {% for person in persons %}
             <div class="w3-card-4">

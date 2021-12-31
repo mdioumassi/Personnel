@@ -48,5 +48,9 @@
         {% endif %}
         </tbody>
     </table>
-    <a href="{{ path('admin_person_create') }}" role="button">Ajouter une personne</a>
+    <div class="grid">
+        <a href="{{ path('admin_person_create') }}" role="button">Ajouter une personne</a>
+        <a href="{{ path('homepage') }}"><button class="w3-green">Front office</button></a>
+    </div>
+
 {% endblock %}

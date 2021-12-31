@@ -179,7 +179,7 @@ class Persons
 
     public function __toString()
     {
-        return $this->getFirstname() .' '.$this->getLastname(). '-'.$this->getPost();
+        return $this->getFirstname()[0] .'.  '.$this->getLastname(). '-'.ucfirst($this->getPost());
     }
 
     public function getCreatedAt(): ?\DateTimeImmutable

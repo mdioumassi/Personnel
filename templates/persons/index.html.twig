@@ -3,31 +3,29 @@
 {% block title %}Liste des membres!{% endblock %}
 
 {% block body %}
-    <table>
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Firtsname</th>
-            <th>Lastname</th>
-            <th>Date naissance</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% if (persons is not empty) %}
-            {% for person in persons %}
-            <tr>
-                <th>{{ person.id }}</th>
-                <td>{{ person.firstname }}</td>
-                <td>{{ person.lastname }}</td>
-                <td>{{ person.birthday | date('d/m/Y') }}</td>
-            </tr>
-            {% endfor %}
-            {% else %}
-                <tr>
-                    <td>No Data</td>
-                </tr>
-        {% endif %}
-        </tbody>
-    </table>
-    <a href="{{ path('admin_person_create') }}" role="button">Ajouter un personnel</a>
+<h1>liste des personnes</h1>
+    <div class="grid">
+        {% for person in persons %}
+            <div class="w3-card-4">
+                <div class="w3-container">
+                    <div class="grid">
+                        <h6>{{ person.firstname[:1]~'.' }} {{ person.lastname|upper }} - <span class="w3-text-green">{{ person.post|capitalize }}</span></h6>
+                    </div>
+                </div>
+                <div class="w3-display-container">
+                    <img class="w3-responsive" src="{{ asset('/uploads/photosProfile/'~person.photo) }}" alt="Alps" style="width:100%">
+                    <div class="w3-display-middle w3-display-hover">
+                        <a href="{{ path('profile_detail', {'id':person.id}) }}"><button class="w3-button w3-teal">Détail</button></a>
+                    </div>
+                    <div class="w3-container">
+                        {% if person.persons is not empty %}
+                            <div class="grid">
+                                <h6>Resp.:{{ person.persons }}</h6>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

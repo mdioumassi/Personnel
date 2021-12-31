@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des membres!{% endblock %}
+
+{% block body %}
+    <div class="grid">
+        <img class="w3-responsive" src="{{ asset('/uploads/photosProfile/'~person.photo) }}" alt="Alps" style="width:100%">
+        <div class="w3-container">
+            <h1>{{ person.firstname }} {{ person.lastname|upper }} </h1>
+            <h2 class="w3-text-green"> {{ person.post|upper }}</h2>
+            <h2> {{ person.address }}</h2>
+            {% if person.persons is not empty %}
+                <h3>Responsable: {{ person.persons }}</h3>
+            {% endif %}
+        </div>
+    </div>
+    <a href="{{ path('homepage') }}">Retour</a>
+{% endblock %}

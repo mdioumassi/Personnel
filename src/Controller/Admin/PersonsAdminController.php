@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Persons;
 use App\Form\PersonsType;
+use App\manager\PersonService;
 use App\Repository\PersonsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -34,7 +35,7 @@ class PersonsAdminController extends AbstractController
     /**
      * @Route("/create", name="create")
      */
-      public function create(Request $request, EntityManagerInterface $manager, SluggerInterface $slugger) : Response
+      public function create(Request $request, EntityManagerInterface $manager, SluggerInterface $slugger, PersonService $personService) : Response
       {
             $persons = new Persons();
             $form = $this->createForm(PersonsType::class, $persons);
@@ -42,20 +43,8 @@ class PersonsAdminController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
                 $data = $form->getData();
                 $photoFile = $form->get('photo')->getData();
-                if ($photoFile) {
-                    $originalFilename = pathinfo($photoFile->getClientOriginalName(), PATHINFO_FILENAME);
-                    $safeFilename = $slugger->slug($originalFilename);
-                    $newFilename = $safeFilename.'-'.uniqid().'.'.$photoFile->guessExtension();
-                    try {
-                        $photoFile->move(
-                            $this->getParameter('photo_directory'),
-                            $newFilename
-                        );
-                    } catch (FileException $e) {
-                        // ... handle exception if something happens during file upload
-                    }
-                    $persons->setPhoto($newFilename);
-                }
+                $newFilename = $personService->postPhoto($photoFile);
+                $persons->setPhoto($newFilename);
                 $manager->persist($persons);
                 $manager->flush();
                 $this->addFlash('message', 'personnel crée avec succés');
@@ -109,12 +98,16 @@ class PersonsAdminController extends AbstractController
      * @Route("/detail/{id}", name="detail",  requirements={"id"="\d+"})
      * @return Response
      */
-      public function detail(Persons $person) : Response
+      public function detail($id, PersonsRepository $personsRepository) : Response
       {
+            $person = $personsRepository->find($id);
          if ($person) {
              return $this->render('/admin/persons/detail.html.twig', [
                  'person' => $person
              ]);
+         } else {
+//             throw $this->createNotFoundException("Not Found");
+             return $this->redirectToRoute("admin_person_list");
          }
       }
 
